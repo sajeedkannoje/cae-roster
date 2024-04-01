@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Import\Import;
+use App\Enum\Platform;
 use Maatwebsite\Excel\Excel;
+use App\Import\ImportManager;
 use Illuminate\Http\JsonResponse;
+use PhpOffice\PhpSpreadsheet\Reader\Html;
 use App\Http\Requests\ActivityImportRequest;
 
 /**
@@ -24,11 +27,15 @@ class ActivityController extends Controller
      * @param ActivityImportRequest $activityImportRequest
      *
      * @return JsonResponse
+     * @throws \Exception
      */
     public function uploadRoster(ActivityImportRequest $activityImportRequest): JsonResponse
     {
-        $file = public_path('data/CrewConnex.html');
-        ( new Import() )->import($file, null, 'Html');
+        $importInstance =  ImportManager::getInstance()->getImportInstance(Platform::RosterBuster);
+
+        $file = public_path('data/roster_data.xlsx');
+
+        $importInstance->import($file, null, Excel::XLSX);
 
         return $this->respondSuccess('Roster uploaded successfully');
     }

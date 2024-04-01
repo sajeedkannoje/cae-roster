@@ -24,6 +24,7 @@ class ActivityImportRequest extends FormRequest
     {
         return [
 //            'attachment' => [ 'required', 'file', 'mimes:pdf,xls,xlsx,txt,html,webcal' ],
+//'crew_id' => 'required|numeric',
         ];
     }
 }
