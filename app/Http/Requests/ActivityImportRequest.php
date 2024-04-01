@@ -23,7 +23,7 @@ class ActivityImportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'attachment' => [ 'required', 'file', 'mimes:pdf,xls,xlsx,txt,html,webcal' ],
+//            'attachment' => [ 'required', 'file', 'mimes:pdf,xls,xlsx,txt,html,webcal' ],
         ];
     }
 }

@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-interface ImportInterface extends  ToModel, WithValidation, WithHeadingRow, WithChunkReading, WithEvents, SkipsEmptyRows, SkipsOnError
+interface ImportInterface extends  ToModel, WithValidation, WithHeadingRow, SkipsEmptyRows, SkipsOnError
 {
 
 

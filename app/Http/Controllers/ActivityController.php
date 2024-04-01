@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Import\Import;
+use Maatwebsite\Excel\Excel;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ActivityImportRequest;
 
@@ -25,6 +27,9 @@ class ActivityController extends Controller
      */
     public function uploadRoster(ActivityImportRequest $activityImportRequest): JsonResponse
     {
+        $file = public_path('data/CrewConnex.html');
+        ( new Import() )->import($file, null, 'Html');
+
         return $this->respondSuccess('Roster uploaded successfully');
     }
 
