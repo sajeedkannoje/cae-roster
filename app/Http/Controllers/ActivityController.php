@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\ActivityImportRequest;
 
 /**
  *
@@ -18,9 +19,11 @@ class ActivityController extends Controller
     }
 
     /**
+     * @param ActivityImportRequest $activityImportRequest
+     *
      * @return JsonResponse
      */
-    public function uploadRoster(): JsonResponse
+    public function uploadRoster(ActivityImportRequest $activityImportRequest): JsonResponse
     {
         return $this->respondSuccess('Roster uploaded successfully');
     }
