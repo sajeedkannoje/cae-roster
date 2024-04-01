@@ -12,27 +12,24 @@ return new class extends Migration {
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->string('revision', 10)->nullable();
-            $table->string('duty_code', 10)->nullable();
-            $table->time('check_in_utc')->nullable();
-            $table->time('check_out_utc')->nullable();
+            $table->string('date');
+            $table->time('check_in_utc')->nullable()->comment("Check-in Time");
+            $table->time('check_out_utc')->nullable()->comment("Check-out Time");
             $table->string('activity', 50)->default("UNK");
             $table->string('remark', 255)->nullable();
             $table->string('from', 50);
-            $table->time('std_utc')->nullable();
+            $table->time('std_utc')->nullable()->comment("Scheduled Time of Departure");
             $table->string('to', 50);
-            $table->time('sta_utc')->nullable();
+            $table->time('sta_utc')->nullable()->comment("Scheduled Time of Arrival");
             $table->string('hotel', 50)->nullable();
-            $table->time('blh')->nullable();
-            $table->time('flight_time')->nullable();
-            $table->time('night_time')->nullable();
-            $table->time('duration')->nullable();
-            $table->string('ext', 10)->nullable();
-            $table->integer('pax_booked')->nullable();
+            $table->string('blh')->nullable();
+            $table->string('night_time')->nullable();
+            $table->string('duration')->nullable();
+            $table->string('pax_booked')->nullable();
             $table->string('ac_registration', 20)->nullable();
             $table->integer('crew_id')->nullable();
             $table->boolean('is_imported')->default(false);
+            $table->date('activity_date');
             // we can manage with relation
             //$table->foreign('crew_id')->references('id')->on('crews');
             $table->timestamps();

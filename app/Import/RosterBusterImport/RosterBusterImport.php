@@ -2,7 +2,10 @@
 
 namespace App\Import\RosterBusterImport;
 
+use Carbon\Carbon;
 use App\Import\Import;
+use App\Models\Activity;
+use App\Http\Requests\ActivityImportRequest;
 
 /**
  *
@@ -20,6 +23,17 @@ class RosterBusterImport extends Import
      */
     protected array $currentDayData = [];
 
+    protected string $activityDate = "";
+
+    protected string $activityMonthAndYear = "01-2022";
+
+    protected ActivityImportRequest $activityImportRequest;
+
+    public function __construct(ActivityImportRequest $activityImportRequest)
+    {
+        $this->activityImportRequest = $activityImportRequest;
+    }
+
 
     /**
      * @param $data
@@ -27,10 +41,17 @@ class RosterBusterImport extends Import
      *
      * @return mixed
      */
-    public function prepareForValidation($data, $index)
+    public function prepareForValidation($data, $index): mixed
     {
+        $data["ciz"] = isset($data['ciz']) ? date("H:i", strtotime($data['ciz'])) : null;
+        $data["coz"] = isset($data['coz']) ? date("H:i", strtotime($data['coz'])) : null;
+
+        if (!empty($data["date"])) {
+            $date = $data["date"] . "-" . $this->activityMonthAndYear;
+            $this->activityDate = Carbon::createFromFormat("D d-m-Y", $date)->format("Y-m-d");
+        }
+
         return $this->parseRosterDataToLocalField($data);
-//      $data['ciz'] = isset($data['ciz']) ? date("H:i", strtotime($data['ciz'])) : null;
     }
 
     /**
@@ -46,11 +67,12 @@ class RosterBusterImport extends Import
      *
      * @return void
      */
-    protected function saveDayData(array $dayData)
+    protected function saveDayData(array $dayData): void
     {
         if (empty($dayData)) return;
 
-        var_dump($this->currentDayData);
+        Activity::insert($dayData);
+
     }
 
     /**

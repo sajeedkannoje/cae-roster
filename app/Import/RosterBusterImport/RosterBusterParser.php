@@ -2,32 +2,40 @@
 
 namespace App\Import\RosterBusterImport;
 
+/**
+ *
+ */
 trait RosterBusterParser
 {
 
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
     public function parseRosterDataToLocalField(array $data): array
     {
+
+
         return [
             "date"            => $data["date"],
-            "revision"        => $data["rev"],
-            "duty_code"       => $data["dc"],
-            "check_in_utc"    => $data["ciz"],
-            "check_out_utc"   => $data["coz"],
+            "activity_date"   => $this->activityDate,
+            "check_in_utc"    => isset($data['ciz']) ? date("H:i", strtotime($data['ciz'])) : null,
+            "check_out_utc"   => isset($data['coz']) ? date("H:i", strtotime($data['coz'])) : null,
             "activity"        => $data["activity"],
             "remark"          => $data["remark"],
             "from"            => $data["from"],
-            "std_utc"         => $data["stdz"],
+            "std_utc"         => isset($data['stdz']) ? date("H:i", strtotime($data['stdz'])) : null,
             "to"              => $data["to"],
-            "sta_utc"         => $data["staz"],
+            "sta_utc"         => isset($data['staz']) ? date("H:i", strtotime($data['staz'])) : null,
             "hotel"           => $data["achotel"],
             "blh"             => $data["blh"],
-            "flight_time"     => $data["flight_time"],
             "night_time"      => $data["night_time"],
             "duration"        => $data["dur"],
-            "ext"             => $data["ext"],
             "pax_booked"      => $data["pax_booked"],
             "ac_registration" => $data["acreg"],
             "is_imported"     => true,
+            "crew_id"         => $this->activityImportRequest->get('crew_id'),
         ];
     }
 

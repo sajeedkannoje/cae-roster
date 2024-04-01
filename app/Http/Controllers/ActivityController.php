@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Import\Import;
+use Exception;
 use App\Enum\Platform;
 use Maatwebsite\Excel\Excel;
 use App\Import\ImportManager;
 use Illuminate\Http\JsonResponse;
-use PhpOffice\PhpSpreadsheet\Reader\Html;
 use App\Http\Requests\ActivityImportRequest;
 
 /**
@@ -27,11 +26,11 @@ class ActivityController extends Controller
      * @param ActivityImportRequest $activityImportRequest
      *
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function uploadRoster(ActivityImportRequest $activityImportRequest): JsonResponse
     {
-        $importInstance =  ImportManager::getInstance()->getImportInstance(Platform::RosterBuster);
+        $importInstance =  ImportManager::getInstance()->getImportInstance(Platform::RosterBuster, $activityImportRequest);
 
         $file = public_path('data/roster_data.xlsx');
 
