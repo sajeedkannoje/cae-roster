@@ -10,6 +10,7 @@ use App\Import\ImportManager;
 use Illuminate\Http\JsonResponse;
 use App\Services\ActivityService;
 use App\Http\Requests\LocationRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\DateFilterRequest;
 use App\Http\Resources\ActivityResource;
 use App\Http\Requests\ActivityImportRequest;
@@ -49,7 +50,7 @@ class ActivityController extends Controller
         if ($activityImportRequest->hasFile('attachment')) {
 
             $file = FileHelper::uploadFile($activityImportRequest->file('attachment'));
-            $importInstance->import($file, null, Excel::XLSX);
+            $importInstance->import(Storage::disk('public_root')->url($file), null);
             return $this->respondSuccess('Roster uploaded successfully');
         }
 

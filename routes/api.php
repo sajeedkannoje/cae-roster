@@ -18,9 +18,9 @@ use App\Http\Controllers\ActivityController;
 /**
  * Activity routes
  */
-Route::prefix('activities')->group(function () {
+Route::prefix('activity')->name('activity.')->group(function () {
     Route::post('/', [ ActivityController::class, 'getEventsByDateRange' ]);
-    Route::post('/upload', [ ActivityController::class, 'uploadRoster' ]);
+    Route::post('/upload', [ ActivityController::class, 'uploadRoster' ])->name('upload');
 
 });
 

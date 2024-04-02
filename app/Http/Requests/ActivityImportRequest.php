@@ -28,7 +28,7 @@ class ActivityImportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'attachment' => [ 'required', 'file', 'mimes:pdf,xls,xlsx,txt,html,webcal' ],
+            'attachment' => [ 'required', 'file', 'mimes:pdf,xls,xlsx,csv,txt,html,webcal' ],
             'crew_id'    => 'required|numeric',
             'platform'   => [ "nullable", Rule::enum(Platform::class) ],
         ];

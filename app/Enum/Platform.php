@@ -4,5 +4,5 @@ namespace App\Enum;
 
 enum Platform : string
 {
-    case RosterBuster = 'RosterBuster';
+    case RosterBuster = 'roster-buster';
 }

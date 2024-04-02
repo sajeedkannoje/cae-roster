@@ -43,7 +43,11 @@ class FileHelper
     {
         $fileExtension = $uploadedFile->extension();
         $newName = Str::random() . '_' . time() . '.' . $fileExtension;
-        $uploadedFile->move(public_path($folder), $newName);
-        return ( !$publicURL ) ? "{$folder}/{$newName}" : url("{$folder}/{$newName}");
+
+        // Store the uploaded file in the specified disk and folder with the generated name
+        $path = Storage::disk('public_root')->putFileAs($folder, $uploadedFile, $newName);
+
+        // Return the path or URL of the stored file
+        return ( !$publicURL ) ? $path : Storage::disk('public_import')->url($path);
     }
 }
