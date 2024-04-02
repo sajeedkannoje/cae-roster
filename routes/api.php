@@ -19,7 +19,7 @@ use App\Http\Controllers\ActivityController;
  * Activity routes
  */
 Route::prefix('activity')->name('activity.')->group(function () {
-    Route::post('/', [ ActivityController::class, 'getEventsByDateRange' ]);
+    Route::post('/', [ ActivityController::class, 'getEventsByDateRange' ])->name('get-events-by-date-range');
     Route::post('/upload', [ ActivityController::class, 'uploadRoster' ])->name('upload');
 
 });
@@ -27,15 +27,15 @@ Route::prefix('activity')->name('activity.')->group(function () {
 /**
  * Flight routes
  */
-Route::prefix('flights')->group(function () {
-    Route::get('/next-week', [ ActivityController::class, 'getFlightsNextWeek' ]);
-    Route::post('/from', [ ActivityController::class, 'getFlightsFromLocation' ]);
+Route::prefix('flights')->name('flights.')->group(function () {
+    Route::get('/next-week', [ ActivityController::class, 'getFlightsNextWeek' ])->name('next-week');
+    Route::post('/from', [ ActivityController::class, 'getFlightsFromLocation' ])->name('from-location');
 });
 
 /**
  * Standby routes
  */
-Route::prefix('standbys')->group(function () {
-    Route::get('/next-week', [ ActivityController::class, 'getStandbyEventsNextWeek' ]);
+Route::prefix('standbys')->name('standby.')->group(function () {
+    Route::get('/next-week', [ ActivityController::class, 'getStandbyEventsNextWeek' ])->name('next-week');
 });
 

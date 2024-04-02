@@ -12,6 +12,10 @@
         </testsuite>
         <testsuite name="Feature">
             <file>./tests/Feature/UploadRosterTest.php</file>
+            <file>./tests/Feature/GetEventsByDateRangeTest.php</file>
+            <file>./tests/Feature/GetFlightsFromLocationTest.php</file>
+            <file>./tests/Feature/GetFlightsNextWeekTest.php</file>
+            <file>./tests/Feature/GetStandbyEventsNextWeekTest.php</file>
         </testsuite>
     </testsuites>
     <php>
