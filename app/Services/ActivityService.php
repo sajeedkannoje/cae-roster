@@ -32,8 +32,6 @@ trait ActivityService
     public function fetchFlightsNextWeek(): mixed
     {
         $date = $this->getNextWeekDates();
-
-
         return Activity::where('activity', 'REGEXP', '^[A-Z]{2}\d+$')
                        ->whereBetween('date', [ $date['start_date'], $date ['end_date'] ])->get();
     }
@@ -54,7 +52,7 @@ trait ActivityService
      *
      * @return mixed
      */
-    public function fetchFlightsFromLocation(LocationRequest $locationRequest)
+    public function fetchFlightsFromLocation(LocationRequest $locationRequest): mixed
     {
         return Activity::where('activity', 'REGEXP', '^[A-Z]{2}\d+$')
                        ->whereFrom($locationRequest->get('location'))->get();
