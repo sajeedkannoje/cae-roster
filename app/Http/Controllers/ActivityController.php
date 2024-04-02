@@ -54,8 +54,6 @@ class ActivityController extends Controller
             return $this->respondSuccess('Roster uploaded successfully');
         }
 
-        return $this->respondError("File not found");
-
     }
 
     /**

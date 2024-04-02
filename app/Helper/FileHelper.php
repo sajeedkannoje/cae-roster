@@ -19,18 +19,6 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class FileHelper
 {
-    /**
-     * @param string $filePath
-     *
-     * @return void
-     */
-    public static function deleteIfExists(string $filePath): void
-    {
-        if (Storage::get($filePath)) {
-            Storage::delete($filePath);
-        }
-    }
-
 
     /**
      * @param UploadedFile $uploadedFile

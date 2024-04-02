@@ -44,33 +44,6 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e): Response
     {
-        if ($e instanceof PostTooLargeException) {
-            return $this->apiResponse(
-                [
-                    'success' => false,
-                    'message' => "Size of attached file should be less " . ini_get("upload_max_filesize") . "B",
-                ],
-                400
-            );
-        }
-        if ($e instanceof AuthenticationException) {
-            return $this->apiResponse(
-                [
-                    'success' => false,
-                    'message' => 'Unauthenticated or Token Expired, Please Login',
-                ],
-                401
-            );
-        }
-        if ($e instanceof AuthorizationException) {
-            return $this->apiResponse(
-                [
-                    'success' => false,
-                    'message' => 'You are not authorized to perform to this action',
-                ],
-                403
-            );
-        }
         if ($e instanceof ModelNotFoundException) {
             return $this->apiResponse(
                 [
@@ -99,14 +72,6 @@ class Handler extends ExceptionHandler
                 ], 404);
         }
 
-        if ($e instanceof MethodNotAllowedHttpException) {
-            return $this->apiResponse(
-                [
-                    'success' => false,
-                    'message' => 'This method is not allowed, refer to docs',
-                ], 405);
-        }
-
         if ($e instanceof ValidationException) {
             return $this->apiResponse(
                 [
@@ -117,46 +82,7 @@ class Handler extends ExceptionHandler
                 422
             );
         }
-        if ($e instanceof ThrottleRequestsException) {
-            return $this->apiResponse(
-                [
-                    'success' => false,
-                    'message' => 'Too Many Requests,Please Slow Down',
-                ],
-                429
-            );
-        }
-        if ($e instanceof QueryException) {
-            return $this->apiResponse(
-                [
-                    'success'   => false,
-                    'message'   => 'There was Issue with the Query',
-                    'exception' => $e,
 
-                ],
-                500
-            );
-        }
-        if ($e instanceof HttpResponseException) {
-            return $this->apiResponse(
-                [
-                    'success'   => false,
-                    'message'   => "There was some internal error",
-                    'exception' => $e,
-                ],
-                500
-            );
-        }
-        if ($e instanceof \Error) {
-            return $this->apiResponse(
-                [
-                    'success'   => false,
-                    'message'   => "There was some internal error",
-                    'exception' => $e,
-                ],
-                500
-            );
-        }
         return parent::render($request, $e);
     }
 }
