@@ -6,17 +6,13 @@ use Exception;
 use App\Enum\Platform;
 use App\Helper\FileHelper;
 use Maatwebsite\Excel\Excel;
-use Illuminate\Http\Request;
 use App\Import\ImportManager;
-use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Services\ActivityService;
 use App\Http\Requests\LocationRequest;
 use App\Http\Requests\DateFilterRequest;
 use App\Http\Resources\ActivityResource;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ActivityImportRequest;
-use Illuminate\Validation\ValidationException;
 
 /**
  *
