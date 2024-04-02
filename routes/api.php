@@ -19,7 +19,7 @@ use App\Http\Controllers\ActivityController;
  * Activity routes
  */
 Route::prefix('activities')->group(function () {
-    Route::get('/{from}/{to}', [ ActivityController::class, 'getEventsByDateRange' ]);
+    Route::post('/', [ ActivityController::class, 'getEventsByDateRange' ]);
     Route::post('/upload', [ ActivityController::class, 'uploadRoster' ]);
 
 });
@@ -29,7 +29,7 @@ Route::prefix('activities')->group(function () {
  */
 Route::prefix('flights')->group(function () {
     Route::get('/next-week', [ ActivityController::class, 'getFlightsNextWeek' ]);
-    Route::get('/from/{location}', [ ActivityController::class, 'getFlightsFromLocation' ]);
+    Route::get('/from/{location}', [ ActivityController::class, 'getFlightsFromLocation' ])->where(["location" => "string"]);
 });
 
 /**

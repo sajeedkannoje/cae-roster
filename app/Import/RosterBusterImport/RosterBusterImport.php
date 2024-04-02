@@ -66,9 +66,7 @@ class RosterBusterImport extends Import
     protected function saveDayData(array $dayData): void
     {
         if (empty($dayData)) return;
-
         Activity::insert($dayData);
-
     }
 
     /**

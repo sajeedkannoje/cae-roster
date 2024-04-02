@@ -7,7 +7,11 @@ use App\Enum\Platform;
 use App\Helper\FileHelper;
 use Maatwebsite\Excel\Excel;
 use App\Import\ImportManager;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
+use App\Services\ActivityService;
+use App\Http\Requests\DateFilterRequest;
+use App\Http\Resources\ActivityResource;
 use App\Http\Requests\ActivityImportRequest;
 
 /**
@@ -15,12 +19,18 @@ use App\Http\Requests\ActivityImportRequest;
  */
 class ActivityController extends Controller
 {
+    use ActivityService;
+
     /**
+     * @param DateFilterRequest $dateFilterRequest
+     *
      * @return JsonResponse
      */
-    public function getEventsByDateRange(): JsonResponse
+    public function getEventsByDateRange(DateFilterRequest $dateFilterRequest): JsonResponse
     {
-        return $this->respondSuccess('All Events fetched successfully');
+        $activityData = $this->getEventsByDateRangBetweenDateRange($dateFilterRequest);
+
+        return $this->respondWithResource(ActivityResource::collection($activityData));
     }
 
     /**
@@ -52,7 +62,9 @@ class ActivityController extends Controller
      */
     public function getFlightsNextWeek(): JsonResponse
     {
-        return $this->respondSuccess('Flights for next week fetched successfully');
+        $flightData = $this->fetchFlightsNextWeek();
+
+        return $this->respondWithResource(ActivityResource::collection($flightData));
     }
 
     /**
@@ -60,6 +72,8 @@ class ActivityController extends Controller
      */
     public function getFlightsFromLocation(): JsonResponse
     {
+        $flightData = $this->fetchFlightsFromLocation();
+
         return $this->respondSuccess('Flights from location fetched successfully');
     }
 
