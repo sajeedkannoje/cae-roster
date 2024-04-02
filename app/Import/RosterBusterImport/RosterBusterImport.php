@@ -43,14 +43,10 @@ class RosterBusterImport extends Import
      */
     public function prepareForValidation($data, $index): mixed
     {
-        $data["ciz"] = isset($data['ciz']) ? date("H:i", strtotime($data['ciz'])) : null;
-        $data["coz"] = isset($data['coz']) ? date("H:i", strtotime($data['coz'])) : null;
-
         if (!empty($data["date"])) {
             $date = $data["date"] . "-" . $this->activityMonthAndYear;
             $this->activityDate = Carbon::createFromFormat("D d-m-Y", $date)->format("Y-m-d");
         }
-
         return $this->parseRosterDataToLocalField($data);
     }
 

@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('date');
+            $table->date('date');
             $table->time('check_in_utc')->nullable()->comment("Check-in Time");
             $table->time('check_out_utc')->nullable()->comment("Check-out Time");
             $table->string('activity', 50)->default("UNK");
@@ -29,7 +29,6 @@ return new class extends Migration {
             $table->string('ac_registration', 20)->nullable();
             $table->integer('crew_id')->nullable();
             $table->boolean('is_imported')->default(false);
-            $table->date('activity_date');
             // we can manage with relation
             //$table->foreign('crew_id')->references('id')->on('crews');
             $table->timestamps();

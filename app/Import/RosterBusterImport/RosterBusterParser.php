@@ -15,11 +15,8 @@ trait RosterBusterParser
      */
     public function parseRosterDataToLocalField(array $data): array
     {
-
-
         return [
-            "date"            => $data["date"],
-            "activity_date"   => $this->activityDate,
+            "date"            => $this->activityDate,
             "check_in_utc"    => isset($data['ciz']) ? date("H:i", strtotime($data['ciz'])) : null,
             "check_out_utc"   => isset($data['coz']) ? date("H:i", strtotime($data['coz'])) : null,
             "activity"        => $data["activity"],

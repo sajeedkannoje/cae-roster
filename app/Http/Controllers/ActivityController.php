@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Enum\Platform;
+use App\Helper\FileHelper;
 use Maatwebsite\Excel\Excel;
 use App\Import\ImportManager;
 use Illuminate\Http\JsonResponse;
@@ -30,13 +31,20 @@ class ActivityController extends Controller
      */
     public function uploadRoster(ActivityImportRequest $activityImportRequest): JsonResponse
     {
-        $importInstance =  ImportManager::getInstance()->getImportInstance(Platform::RosterBuster, $activityImportRequest);
+        $importInstance = match ( Platform::tryFrom($activityImportRequest->get('platform')) ) {
+            Platform::RosterBuster => ImportManager::getInstance()->getImportInstance(Platform::RosterBuster, $activityImportRequest),
+            default                => ImportManager::getInstance()->getImportInstance(Platform::RosterBuster, $activityImportRequest),
+        };
 
-        $file = public_path('data/roster_data.xlsx');
+        if ($activityImportRequest->hasFile('attachment')) {
 
-        $importInstance->import($file, null, Excel::XLSX);
+            $file = FileHelper::uploadFile($activityImportRequest->file('attachment'));
+            $importInstance->import($file, null, Excel::XLSX);
+            return $this->respondSuccess('Roster uploaded successfully');
+        }
 
-        return $this->respondSuccess('Roster uploaded successfully');
+        return $this->respondError("File not found");
+
     }
 
     /**
