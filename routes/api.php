@@ -29,7 +29,7 @@ Route::prefix('activities')->group(function () {
  */
 Route::prefix('flights')->group(function () {
     Route::get('/next-week', [ ActivityController::class, 'getFlightsNextWeek' ]);
-    Route::get('/from/{location}', [ ActivityController::class, 'getFlightsFromLocation' ])->where(["location" => "string"]);
+    Route::post('/from', [ ActivityController::class, 'getFlightsFromLocation' ]);
 });
 
 /**
@@ -38,3 +38,4 @@ Route::prefix('flights')->group(function () {
 Route::prefix('standbys')->group(function () {
     Route::get('/next-week', [ ActivityController::class, 'getStandbyEventsNextWeek' ]);
 });
+

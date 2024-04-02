@@ -6,13 +6,17 @@ use Exception;
 use App\Enum\Platform;
 use App\Helper\FileHelper;
 use Maatwebsite\Excel\Excel;
+use Illuminate\Http\Request;
 use App\Import\ImportManager;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Services\ActivityService;
+use App\Http\Requests\LocationRequest;
 use App\Http\Requests\DateFilterRequest;
 use App\Http\Resources\ActivityResource;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ActivityImportRequest;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -68,13 +72,15 @@ class ActivityController extends Controller
     }
 
     /**
+     * @param LocationRequest $locationRequest
+     *
      * @return JsonResponse
      */
-    public function getFlightsFromLocation(): JsonResponse
+    public function getFlightsFromLocation(LocationRequest $locationRequest): JsonResponse
     {
-        $flightData = $this->fetchFlightsFromLocation();
+        $flightData = $this->fetchFlightsFromLocation($locationRequest);
 
-        return $this->respondSuccess('Flights from location fetched successfully');
+        return $this->respondWithResource(ActivityResource::collection($flightData));
     }
 
     /**
@@ -82,6 +88,7 @@ class ActivityController extends Controller
      */
     public function getStandbyEventsNextWeek(): JsonResponse
     {
-        return $this->respondSuccess('Standby events for next week fetched successfully');
+        $flightData = $this->fetchStandbyEventsNextWeek();
+        return $this->respondWithResource(ActivityResource::collection($flightData));
     }
 }

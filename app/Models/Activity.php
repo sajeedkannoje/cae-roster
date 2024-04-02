@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static insert( array $dayData )
  * @method static whereBetween( string $string, array $array )
- * @method static where( string $string, string $string1, string $pattern )
+ * @method static whereActivity( string $value )
+ * @method static whereFrom( mixed $get )
+ * @method static where( string $string, string $string1, string $string2 )
+ *
  */
 class Activity extends Model
 {

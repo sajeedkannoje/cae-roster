@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum Activity: string
+enum ActivityEnum: string
 {
     case DayOff = 'OFF';
     case StandBy = 'SBY';

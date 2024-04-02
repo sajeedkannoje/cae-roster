@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Closure;
-use App\Enum\Activity;
+use App\Enum\ActivityEnum;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Translation\PotentiallyTranslatedString;
@@ -17,7 +17,7 @@ class CustomActivityRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (!Rule::enum(Activity::class)->passes($attribute, $value) && !preg_match('/^[A-Z]{2}\d+$/', $value)) {
+        if (!Rule::enum(ActivityEnum::class)->passes($attribute, $value) && !preg_match('/^[A-Z]{2}\d+$/', $value)) {
             $fail('The :attribute must be a valid activity code');
         }
     }
