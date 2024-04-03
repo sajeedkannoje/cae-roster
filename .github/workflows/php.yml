@@ -63,3 +63,9 @@ jobs:
 
       - name: Drop migration
         run: php artisan migrate:rollback --step=0
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: sajeedkannoje/cae-roster
