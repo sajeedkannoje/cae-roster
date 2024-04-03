@@ -69,3 +69,8 @@ jobs:
 
       - name: Drop migration
         run: php artisan migrate:rollback --step=0
+      - name: Make code coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.1
+        with:
+          coverage_badge_path: output/coverage.svg
+          push_badge: true
