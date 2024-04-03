@@ -34,12 +34,4 @@
             <directory suffix=".php">./app</directory>
         </include>
     </source>
-    <coverage>
-        <include>
-            <directory>app</directory>
-        </include>
-        <report>
-            <clover>coverage.xml</clover>
-        </report>
-    </coverage>
 </phpunit>

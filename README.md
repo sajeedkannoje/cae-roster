@@ -62,6 +62,10 @@ The api can be accessed at [http://localhost:8000/api](http://localhost:8000/api
 
 # Testing API
 
+Take a look at the API documentation to understand the available endpoints: [damco-cae-import.apidog.io](https://damco-cae-import.apidog.io/)
+ 
+
+
 Run the laravel development server
 
     php artisan serve
@@ -75,4 +79,11 @@ Request headers
 | **Required** 	| **Key**              	| **Value**            	|
 |----------	|------------------	|------------------	|
 | Yes      	| Content-Type     	| application/json 	|
+
+## Import File Structure by Platform
+#### This provides links to sample files in XLSX/XLS and CSV formats for each platform:
+
+| **Platform** 	      | **XLSX/XLS**              	                                                                                           | **CSV**            	 |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------|----------------------|
+| RosterBuster      	 | [RosterBuster.xlsx](https://github.com/sajeedkannoje/cae-roster/blob/main/tests/dataProvider/RosterBuster-xlsx.xlsx)	 | [RosterBuster](https://github.com/sajeedkannoje/cae-roster/blob/main/tests/dataProvider/RosterBuster-csv.csv)	    |
  
