@@ -62,10 +62,7 @@ jobs:
         run: php artisan migrate
 
       - name: Run test and generate coverage report
-        run: composer run-script coverage
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2.1.0
+        run: php artisan test --coverage-text --coverage-clover=coverage.xml
 
       - name: Drop migration
         run: php artisan migrate:rollback --step=0
