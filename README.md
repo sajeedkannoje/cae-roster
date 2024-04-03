@@ -64,9 +64,12 @@ The api can be accessed at [http://localhost:8000/api](http://localhost:8000/api
 
 Take a look at the API documentation to understand the available endpoints: [damco-cae-import.apidog.io](https://damco-cae-import.apidog.io/)
  
+### To run unit tests for the import functionality, execute the following commands:
+
+    php artisan test
 
 
-Run the laravel development server
+## Run the laravel development server
 
     php artisan serve
 
