@@ -6,14 +6,16 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+
 jobs:
 
   validate-composer:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
@@ -26,13 +28,16 @@ jobs:
       fail-fast: true
       matrix:
         php: [ 8.2, 8.3 ]
-        sqlite: [3.40.0, 3.35.0]
         stability: [ prefer-stable ]
 
     services:
-      sqlite:
-        image: docker://alpine
-        options: --health-cmd="sqlite3 -version || exit 1"
+      mariadb:
+        image: mariadb:latest
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: laravel
+          MYSQL_USER: laravel
+          MYSQL_PASSWORD: secret
         ports:
           - 3306:3306
 
@@ -44,24 +49,23 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          ini-values: xdebug.mode=${{ matrix.php == '8.3' ? 'coverage' : 'off' }}
+          ini-values: xdebug.mode="coverage"
+          coverage: xdebug
 
       - name: Install and Update composer
-        run: composer install --no-scripts
+        run: composer install
 
-      - name: Setup environment and generate key
-        run: |
-          cp .env.example .env
-          php artisan key:generate
+      - name: Setup environment
+        run: cp .env.example .env && php artisan key:generate
 
-      - name: Run database migrations
-        run: php artisan migrate --env=testing --force
+      - name: Set up Sql database
+        run: php artisan migrate
 
-      - name: Run tests and generate coverage report
+      - name: Run test and generate coverage report
         run: composer run-script coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2.1.0
 
-      - name: Drop migrations
+      - name: Drop migration
         run: php artisan migrate:rollback --step=0
