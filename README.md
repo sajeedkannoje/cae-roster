@@ -1,3 +1,5 @@
+[![CEA Roster Suite](https://github.com/sajeedkannoje/cae-roster/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/sajeedkannoje/cae-roster/actions/workflows/php.yml)
+
 # Getting started
 
 ## Installation
