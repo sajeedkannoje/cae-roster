@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/sajeedkannoje/cae-roster/branch/master/graph/badge.svg)](https://codecov.io/gh//sajeedkannoje/cae-roster)
+[![codecov](https://codecov.io/gh/sajeedkannoje/cae-roster/graph/badge.svg?token=4WUGZCDNRM)](https://codecov.io/gh/sajeedkannoje/cae-roster)
 # Getting started
 
 ## Installation
