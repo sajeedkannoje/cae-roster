@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
@@ -31,7 +32,7 @@ jobs:
         stability: [ prefer-stable ]
 
     services:
-       sqlite:
+      sqlite:
         image: composer:latest
         ports:
           - 3306:3306
@@ -54,14 +55,17 @@ jobs:
       - name: Setup environment
         run: cp .env.example .env && php artisan key:generate
 
-      - name: Set up Sql database
-        run: php artisan migrate
+      - name: Set up SQLite database
+        run: touch database/database.sqlite
 
-      - name: Run test and generate coverage report
+      - name: Run database migrations
+        run: php artisan migrate --env=testing --force
+
+      - name: Run tests and generate coverage report
         run: composer run-script coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2.1.0
 
-      - name: Drop migration
+      - name: Drop migrations
         run: php artisan migrate:rollback --step=0
