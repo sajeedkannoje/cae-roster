@@ -1,5 +1,4 @@
-[![CEA Roster Suite](https://github.com/sajeedkannoje/cae-roster/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/sajeedkannoje/cae-roster/actions/workflows/php.yml)
-
+[![codecov](https://codecov.io/gh/sajeedkannoje/cae-roster/branch/master/graph/badge.svg)](https://codecov.io/gh//sajeedkannoje/cae-roster)
 # Getting started
 
 ## Installation
